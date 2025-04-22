@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['tipo'] = $usuario['tipo']; // Si usas roles
 
             // Redirigir a la página principal 
-            header("Location: ../views/dashboard.php");
+            header("Location: ../index.php");
             exit;
         } else {
             $_SESSION['error'] = "Correo o contraseña incorrectos.";

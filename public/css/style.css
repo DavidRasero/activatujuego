@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer a {
+    font-size: 1.2rem;
+}
+
+footer a:hover {
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.panel-informativo {
+    background-color: rgba(216, 216, 216, 0.8); /* d8d8d8 con 80% de opacidad */
+    padding: 2rem; /* Puedes ajustar según necesites */
+    border-radius: 10px; /* Opcional: bordes redondeados para un toque más moderno */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.logo-bonito {
+    border: 3px solid #4caf50; /* Borde verde, puedes cambiar el color */
+    border-radius: 15px;       /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra suave */
+    background-color: white;   /* Fondo blanco para que se destaque */
+}
