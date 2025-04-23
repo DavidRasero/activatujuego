@@ -11,8 +11,8 @@ require_once("config.php");
 <head>
     <meta charset="UTF-8">
     <title>ActivaTuJuego</title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>public/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>public/css/style.css">
     <script src="https://kit.fontawesome.com/a2e8a5b7d6.js" crossorigin="anonymous"></script>
 </head>
 <body>
