@@ -1,18 +1,14 @@
 <?php include('includes/header.php'); ?>
 
-
-
-<!-- Imagen de fondo con carrusel -->
 <div class="carrusel-ajustado mt-4 mb-4">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicadores -->
+
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
         </div>
 
-        <!-- Slides -->
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="public/img/foto4.jpg" class="d-block w-100" alt="...">
@@ -25,7 +21,6 @@
             </div>
         </div>
 
-        <!-- Controles -->
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </button>
@@ -35,7 +30,6 @@
     </div>
 </div>
 
-<!-- Caja unificada -->
 <div class="container my-5 p-5 bg-light rounded shadow panel-informativo text-center">
 
     <h1 class="mb-4">Bienvenido a ActivaTuJuego</h1>
@@ -46,7 +40,6 @@
         <a href="views/register.php" class="btn btn-outline-success">Registrarse</a>
     <?php endif; ?>
 
-    <!-- Panel de logo + información -->
     <div class="row mt-5">
         <div class="col-md-6 d-flex justify-content-center align-items-center mb-4 mb-md-0">
             <img src="public/img/logo.png" alt="Logo ActivaTuJuego" class="img-fluid logo-bonito" style="max-width: 250px;">

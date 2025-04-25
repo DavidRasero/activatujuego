@@ -8,7 +8,7 @@
     <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
 <?php endif; ?>
 
-<div class="container mt-5">
+<div class="container mt-5 p-5 bg-light rounded shadow panel-informativo text-center">
     <h2 class="mb-4 text-center">Iniciar sesión</h2>
     <form action="../controllers/loginController.php" method="POST">
         <div class="mb-3">

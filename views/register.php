@@ -10,7 +10,7 @@ include('../includes/header.php');
 <?php endif; ?>
 
 
-<div class="container mt-5">
+<div class="container mt-5 p-5 bg-light rounded shadow panel-informativo text-center">
     <h2 class="mb-4 text-center">Registro de usuario</h2>
     <form action="../controllers/registerController.php" method="POST" id="registerForm">
         <div class="mb-3">
@@ -31,9 +31,7 @@ include('../includes/header.php');
         </div>
         <button type="submit" class="btn btn-success w-100">Registrarse</button>
     </form>
-    <div class="text-center mt-3">
-        ¿Ya tienes cuenta? <a href="login.php">Inicia sesión aquí</a>
-    </div>
+    
 </div>
 
 <?php

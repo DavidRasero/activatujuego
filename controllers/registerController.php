@@ -1,5 +1,4 @@
 <?php
-// controllers/registerController.php
 
 require_once('../includes/db.php');
 session_start();
@@ -17,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Comprobar si el correo ya existe
     $check_sql = "SELECT id FROM usuario WHERE correo = ?";
     if ($check_stmt = mysqli_prepare($connection, $check_sql)) {
         mysqli_stmt_bind_param($check_stmt, "s", $usuario);
@@ -35,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($check_stmt);
     }
 
-    // Si no existe, lo insertamos
     $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT);
     $sql = "INSERT INTO usuario (nombre, correo, contraseña) VALUES (?, ?, ?)";
     $redireccion = "../views/register.php";

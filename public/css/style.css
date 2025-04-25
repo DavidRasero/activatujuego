@@ -40,8 +40,7 @@ footer a:hover {
 .carrusel-ajustado {
     width: 100%;            
     max-height: 300px;       
-    overflow: hidden;   
-    border: 2px solid rgb(25, 135, 84);   
+    overflow: hidden;    
 }
 
 .carrusel-ajustado img {
