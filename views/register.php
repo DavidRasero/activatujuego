@@ -3,10 +3,12 @@ include('../includes/header.php');
 ?>
 
 <?php if (isset($_SESSION['error'])): ?>
-    <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+    <div class="alert alert-danger"><?= $_SESSION['error'];
+    unset($_SESSION['error']); ?></div>
 <?php endif; ?>
 <?php if (isset($_SESSION['success'])): ?>
-    <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
+    <div class="alert alert-success"><?= $_SESSION['success'];
+    unset($_SESSION['success']); ?></div>
 <?php endif; ?>
 
 
@@ -31,11 +33,9 @@ include('../includes/header.php');
         </div>
         <button type="submit" class="btn btn-success w-100">Registrarse</button>
     </form>
-    
+
 </div>
 
 <?php
 include('../includes/footer.php');
 ?>
-
-

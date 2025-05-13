@@ -14,6 +14,7 @@ require_once("config.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>public/css/style.css">
     <script src="https://kit.fontawesome.com/a2e8a5b7d6.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
