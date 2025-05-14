@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $evento_id = intval($_POST['evento_id']);
     $organizador_id = $_SESSION['usuario_id'];
     $centro_id = intval($_POST['centro_id']);
+    $deporte_id = intval($_POST['deporte_id']);
     $fecha = $_POST['fecha'];
 
     if (!$evento_id || !$centro_id || !$deporte_id || !$fecha) {

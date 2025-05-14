@@ -78,16 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['error'] = "Error al preparar la aceptación.";
             }
 
-
-            mysqli_query($connection, "UPDATE evento SET jugadores_aceptados = jugadores_aceptados + 1 WHERE id = $evento_id");
-
-            $res = mysqli_query($connection, "SELECT jugadores_aceptados FROM evento WHERE id = $evento_id");
-            $row = mysqli_fetch_assoc($res);
-            if ($row['jugadores_aceptados'] >= $maxJugadores) {
-                mysqli_query($connection, "UPDATE evento SET estado = 'completo' WHERE id = $evento_id");
-            }
-
-            $_SESSION['success'] = "Inscripción aceptada.";
         }
 
     } elseif ($accion === 'rechazar') {

@@ -64,6 +64,7 @@ $deportes = mysqli_query($connection, "SELECT * FROM deporte");
             $deporte_nombre = mysqli_fetch_assoc(mysqli_query($connection, "SELECT nombre FROM deporte WHERE id = " . $evento['deporte_id']));
             echo htmlspecialchars($deporte_nombre['nombre']);
             ?>" disabled>
+            <input type="hidden" name="deporte_id" value="<?= $evento['deporte_id'] ?>">
         </div>
 
         <div class="mb-3">

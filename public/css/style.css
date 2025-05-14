@@ -49,4 +49,14 @@ footer a:hover {
     object-fit: cover;     
 }
 
+.card-title {
+    font-size: 1.25rem;
+}
+.card-text {
+    font-size: 0.95rem;
+}
+
+
+
+
 
