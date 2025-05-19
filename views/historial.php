@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../includes/db.php');
+require_once('../models/Inscripcion.php');
 include('../includes/header.php');
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -9,55 +10,34 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 $usuario_id = $_SESSION['usuario_id'];
+$inscripcionModel = new Inscripcion($connection);
 
-$sql = "SELECT 
-            e.fecha,
-            e.estado,
-            d.nombre AS deporte,
-            cd.nombre AS centro
-        FROM inscripcion i
-        JOIN evento e ON i.evento_id = e.id
-        JOIN deporte d ON e.deporte_id = d.id
-        JOIN centrodeportivo cd ON e.centro_id = cd.id
-        WHERE i.usuario_id = ?
-          AND i.estado = 'aceptada'
-          AND e.estado = 'finalizado'
-        ORDER BY e.fecha DESC";
-
-$stmt = mysqli_prepare($connection, $sql);
-mysqli_stmt_bind_param($stmt, "i", $usuario_id);
-mysqli_stmt_execute($stmt);
-$resultado = mysqli_stmt_get_result($stmt);
+// Obtener eventos finalizados del usuario
+$eventos = $inscripcionModel->obtenerEventosFinalizadosPorUsuario($usuario_id);
 ?>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Historial de eventos finalizados</h2>
+    <h2 class="mb-4">Historial de eventos</h2>
 
-    <?php if (mysqli_num_rows($resultado) === 0): ?>
-        <div class="alert alert-info">No has participado aún en eventos finalizados.</div>
+    <?php if (empty($eventos)): ?>
+        <div class="alert alert-info">No has participado en eventos finalizados.</div>
     <?php else: ?>
-        <table class="table table-striped table-bordered">
-            <thead class="table-success">
-                <tr>
-                    <th>Deporte</th>
-                    <th>Centro</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($evento = mysqli_fetch_assoc($resultado)): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($evento['deporte']) ?></td>
-                        <td><?= htmlspecialchars($evento['centro']) ?></td>
-                        <td><?= date('d/m/Y H:i', strtotime($evento['fecha'])) ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+        <div class="row">
+            <?php foreach ($eventos as $evento): ?>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-body">
+                            <h5 class="card-title text-success"><?= htmlspecialchars($evento['deporte']) ?></h5>
+                            <p class="card-text"><strong>Centro:</strong> <?= htmlspecialchars($evento['centro']) ?></p>
+                            <p class="card-text"><strong>Dirección:</strong> <?= htmlspecialchars($evento['direccion']) ?></p>
+                            <p class="card-text"><strong>Fecha:</strong> <?= date('d/m/Y H:i', strtotime($evento['fecha'])) ?></p>
+                            <p class="card-text"><strong>Estado de tu participación:</strong> <?= ucfirst($evento['estado']) ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 </div>
 
-<?php
-include('../includes/footer.php');
-mysqli_close($connection);
-?>
+<?php include('../includes/footer.php'); ?>

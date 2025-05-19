@@ -15,20 +15,23 @@ function confirmarEliminacion(id, nombre) {
     });
 }
 
-function confirmarEliminacionEvento(eventoId) {
+function confirmarFinalizacionEvento(eventoId) {
     Swal.fire({
         title: '¿Estás seguro?',
-        text: `¿Quieres eliminar el evento con ID: ${eventoId}? Esta acción no se puede deshacer.`,
+        text: "Una vez finalizado, no podrás aceptar más jugadores.",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar evento',
+        confirmButtonText: 'Sí, finalizar evento',
         cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6'
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#d33'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = `../controllers/eliminar_evento.php?evento_id=${eventoId}`;
+            window.location.href = '../controllers/finalizar_evento.php?evento_id=' + eventoId;
         }
     });
 }
+
+
+
 

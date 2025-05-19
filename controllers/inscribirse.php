@@ -1,48 +1,58 @@
 <?php
 session_start();
 require_once('../includes/db.php');
+require_once('../models/Inscripcion.php');
 
-if (!isset($_SESSION['usuario_id'])) {
-    $_SESSION['error'] = "Debes iniciar sesión para inscribirte.";
+if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] === 'admin') {
+    $_SESSION['error'] = "Debes iniciar sesión como jugador u organizador para inscribirte.";
     header("Location: ../views/login.php");
     exit;
 }
 
-if (!isset($_GET['evento_id'])) {
-    $_SESSION['error'] = "Evento no especificado.";
-    header("Location: ../views/eventos.php");
-    exit;
-}
-
-$evento_id = intval($_GET['evento_id']);
 $usuario_id = $_SESSION['usuario_id'];
+$evento_id = intval($_GET['evento_id']);
 
-$sql_verificar = "SELECT id FROM inscripcion WHERE usuario_id = ? AND evento_id = ?";
-$stmt = mysqli_prepare($connection, $sql_verificar);
-mysqli_stmt_bind_param($stmt, "ii", $usuario_id, $evento_id);
+// Verificar si el usuario es el organizador del evento
+$sql = "SELECT organizador_id FROM evento WHERE id = ?";
+$stmt = mysqli_prepare($connection, $sql);
+mysqli_stmt_bind_param($stmt, "i", $evento_id);
 mysqli_stmt_execute($stmt);
-mysqli_stmt_store_result($stmt);
+mysqli_stmt_bind_result($stmt, $organizador_id);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
 
-if (mysqli_stmt_num_rows($stmt) > 0) {
-    $_SESSION['error'] = "Ya te has inscrito a este evento.";
-    mysqli_stmt_close($stmt);
-    mysqli_close($connection);
+if ($organizador_id == $usuario_id) {
+    $_SESSION['error'] = "No puedes inscribirte a tu propio evento.";
     header("Location: ../views/eventos.php");
     exit;
 }
-mysqli_stmt_close($stmt);
 
-$sql_insert = "INSERT INTO inscripcion (usuario_id, evento_id, estado) VALUES (?, ?, 'pendiente')";
-$stmt = mysqli_prepare($connection, $sql_insert);
-mysqli_stmt_bind_param($stmt, "ii", $usuario_id, $evento_id);
 
-if (mysqli_stmt_execute($stmt)) {
-    $_SESSION['success'] = "Te has inscrito correctamente. Tu solicitud está pendiente de aprobación.";
-} else {
-    $_SESSION['error'] = "Error al inscribirse: " . mysqli_error($connection);
+if (!isset($_GET['evento_id'])) {
+    $_SESSION['error'] = "Evento no válido.";
+    header("Location: ../views/eventos.php");
+    exit;
 }
 
-mysqli_stmt_close($stmt);
-mysqli_close($connection);
+$usuario_id = $_SESSION['usuario_id'];
+$evento_id = intval($_GET['evento_id']);
+
+$inscripcionModel = new Inscripcion($connection);
+
+// Verificar si ya está inscrito
+$estado = $inscripcionModel->obtenerEstado($usuario_id, $evento_id);
+if ($estado !== null) {
+    $_SESSION['error'] = "Ya estás inscrito a este evento.";
+    header("Location: ../views/eventos.php");
+    exit;
+}
+
+// Crear inscripción
+if ($inscripcionModel->crear($usuario_id, $evento_id)) {
+    $_SESSION['success'] = "Inscripción realizada con éxito.";
+} else {
+    $_SESSION['error'] = "Error al inscribirse al evento.";
+}
+
 header("Location: ../views/eventos.php");
 exit;
