@@ -13,8 +13,11 @@ class Inscripcion
         $sql = "INSERT INTO inscripcion (usuario_id, evento_id, estado) VALUES (?, ?, 'pendiente')";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ii", $usuario_id, $evento_id);
-        return $stmt->execute();
+        $resultado = $stmt->execute();
+        $stmt->close();
+        return $resultado;
     }
+
 
     public function obtenerEstado($usuario_id, $evento_id)
     {

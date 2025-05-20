@@ -60,6 +60,12 @@
             <a href="views/historial.php" class="btn btn-outline-secondary mt-3">Ver historial</a>
         <?php endif; ?>
 
+        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin'): ?>
+                <a href="views/gestionar_deportes.php" class="btn btn-outline-primary mt-3">Gestionar Deportes</a>
+                <a href="views/gestionar_centros.php" class="btn btn-outline-primary mt-3">Gestionar Centros Deportivos</a>
+        <?php endif; ?>
+
+
 
     <?php endif; ?>
 
