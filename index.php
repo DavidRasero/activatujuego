@@ -1,6 +1,6 @@
 <?php include('includes/header.php'); ?>
 
-<div class="carrusel-ajustado mt-4 mb-4">
+<div class="carrusel-ajustado mt-4 mb-4 animado" id="anim-carrusel">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 
         <div class="carousel-indicators">
@@ -33,59 +33,54 @@
     </div>
 </div>
 
-<div class="container my-5 p-5 bg-light rounded shadow panel-informativo text-center">
+<div class="container mt-5">
+    <div class="encabezado-eventos text-center animado" id="anim-panel">
+        <h1 class="titulo-eventos mb-4">Bienvenido a ActivaTuJuego</h1>
+        <p class="lead">Organiza y participa en eventos deportivos fácilmente.</p>
 
-    <h1 class="mb-4">Bienvenido a ActivaTuJuego</h1>
-    <p class="mb-4">Organiza y participa en eventos deportivos fácilmente.</p>
-
-    <?php if (!isset($_SESSION['nombre'])): ?>
-        <a href="views/login.php" class="btn btn-success me-2">Iniciar sesión</a>
-        <a href="views/register.php" class="btn btn-outline-success">Registrarse</a>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['nombre'])): ?>
-        <a href="views/eventos.php" class="btn btn-primary mt-3">Ver lista de eventos</a>
-
-        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['tipo'] === 'organizador'): ?>
-            <a href="views/crear_evento.php" class="btn btn-outline-success mt-3">Crear evento</a>
-            <a href="views/mis_eventos.php" class="btn btn-outline-primary mt-3">Mis eventos</a>
+        <?php if (!isset($_SESSION['nombre'])): ?>
+            <a href="views/login.php" class="btn btn-success me-2">Iniciar sesión</a>
+            <a href="views/register.php" class="btn btn-outline-success">Registrarse</a>
         <?php endif; ?>
 
+        <?php if (isset($_SESSION['nombre'])): ?>
+            <a href="views/eventos.php" class="btn btn-primary mt-3">Ver lista de eventos</a>
 
-        <?php if ($_SESSION['tipo'] === 'admin'): ?>
-            <a href="views/usuarios.php" class="btn btn-outline-primary mt-3">Gestión de usuarios</a>
-        <?php endif; ?>
+            <?php if (isset($_SESSION['usuario_id']) && $_SESSION['tipo'] === 'organizador'): ?>
+                <a href="views/crear_evento.php" class="btn btn-outline-success mt-3">Crear evento</a>
+                <a href="views/mis_eventos.php" class="btn btn-outline-primary mt-3">Mis eventos</a>
+            <?php endif; ?>
 
-        <?php if (isset($_SESSION['usuario_id']) && in_array($_SESSION['tipo'], ['jugador', 'organizador'])): ?>
-            <a href="views/historial.php" class="btn btn-outline-secondary mt-3">Ver historial</a>
-        <?php endif; ?>
+            <?php if ($_SESSION['tipo'] === 'admin'): ?>
+                <a href="views/usuarios.php" class="btn btn-outline-primary mt-3">Gestión de usuarios</a>
+            <?php endif; ?>
 
-        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin'): ?>
+            <?php if (isset($_SESSION['usuario_id']) && in_array($_SESSION['tipo'], ['jugador', 'organizador'])): ?>
+                <a href="views/historial.php" class="btn btn-outline-secondary mt-3">Ver historial</a>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['tipo'] === 'admin'): ?>
                 <a href="views/gestionar_deportes.php" class="btn btn-outline-primary mt-3">Gestionar Deportes</a>
                 <a href="views/gestionar_centros.php" class="btn btn-outline-primary mt-3">Gestionar Centros Deportivos</a>
+            <?php endif; ?>
         <?php endif; ?>
 
-
-
-    <?php endif; ?>
-
-
-    <div class="row mt-5">
-        <div class="col-md-6 d-flex justify-content-center align-items-center mb-4 mb-md-0">
-            <img src="public/img/logo.png" alt="Logo ActivaTuJuego" class="img-fluid logo-bonito"
-                style="max-width: 250px;">
-        </div>
-        <div class="col-md-6 text-start">
-            <h5 class="fw-bold">¿Quiénes somos?</h5>
-            <p>
-                Somos una plataforma que conecta personas que quieren organizar o unirse a eventos deportivos en su
-                ciudad.
-                Fomentamos el deporte, el compañerismo y un estilo de vida saludable. ¡Únete y activa tu juego!
-            </p>
+        <div class="row mt-5">
+            <div class="col-md-6 d-flex justify-content-center align-items-center mb-4 mb-md-0">
+                <img src="public/img/logo.png" alt="Logo ActivaTuJuego" class="img-fluid logo-bonito"
+                    style="max-width: 250px;">
+            </div>
+            <div class="col-md-6 text-start">
+                <h5 class="fw-bold">¿Quiénes somos?</h5>
+                <p>
+                    Somos una plataforma que conecta personas que quieren organizar o unirse a eventos deportivos en su
+                    ciudad.
+                    Fomentamos el deporte, el compañerismo y un estilo de vida saludable. ¡Únete y activa tu juego!
+                </p>
+            </div>
         </div>
     </div>
 </div>
-
 
 
 <?php include('includes/footer.php'); ?>

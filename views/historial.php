@@ -16,7 +16,7 @@ $inscripcionModel = new Inscripcion($connection);
 $eventos = $inscripcionModel->obtenerEventosFinalizadosPorUsuario($usuario_id);
 ?>
 
-<div class="container mt-5">
+<div class="container mt-5 animado" id="anim-eventos">
     <h2 class="mb-4">Historial de eventos</h2>
 
     <?php if (empty($eventos)): ?>

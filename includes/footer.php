@@ -23,5 +23,19 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= BASE_URL ?>public/js/script.js"></script>
 
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const ids = ['anim-carrusel', 'anim-panel', 'anim-eventos', 'anim-historial'];
+
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el !== null) {
+                el.classList.add('visible');
+            }
+        });
+    });
+</script>
+
+
 </body>
 </html>

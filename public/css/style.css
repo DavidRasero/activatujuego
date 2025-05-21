@@ -31,7 +31,7 @@ footer a:hover {
 }
 
 .logo-bonito {
-    border: 3px solid #4caf50;  
+    border: 3px solid #000000;  
     border-radius: 15px;       
     box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
     background-color: white;   
@@ -41,6 +41,8 @@ footer a:hover {
     width: 100%;            
     max-height: 300px;       
     overflow: hidden;    
+    border-top: 2px solid rgb(25, 135, 84);
+    border-bottom: 2px solid rgb(25, 135, 84);
 }
 
 .carrusel-ajustado img {
@@ -56,6 +58,96 @@ footer a:hover {
     font-size: 0.95rem;
 }
 
+.encabezado-eventos {
+    background-color: rgb(132, 212, 132);
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 5px 10px 8px #000000;
+}
+.encabezado-eventos h2 {
+    margin-bottom: 15px;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animado {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.animado.visible {
+    animation: slideInLeft 1s ease forwards;
+}
+
+.btn-historial {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: 2px solid #1e7e34;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-historial:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.icono-historial {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.titulo-eventos {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2e7d32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px;
+}
+
+.logo-hover {
+    transition: transform 0.3s ease, color 0.3s ease;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-hover:hover {
+    transform: scale(1.25);
+}
+
+
+
+
+@media (max-width: 767.98px) {
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
 
 
 
