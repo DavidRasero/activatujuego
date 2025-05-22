@@ -41,8 +41,9 @@ footer a:hover {
     width: 100%;            
     max-height: 300px;       
     overflow: hidden;    
-    border-top: 2px solid rgb(25, 135, 84);
-    border-bottom: 2px solid rgb(25, 135, 84);
+    border-top: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid rgb(0, 0, 0);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .carrusel-ajustado img {
@@ -119,11 +120,15 @@ footer a:hover {
 .titulo-eventos {
     font-size: 2rem;
     font-weight: bold;
-    color: #2e7d32;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow:
+        -1px -1px 0 black,
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
     margin-bottom: 20px;
 }
 
@@ -139,14 +144,42 @@ footer a:hover {
     transform: scale(1.25);
 }
 
+#subtitulo{
+    font-weight: bold;
+}
 
+.table {
+    background-color: white;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 
+.table thead {
+    font-weight: bold;
+    text-align: center;
+}
 
-@media (max-width: 767.98px) {
-    .col-md-6 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+.table th,
+.table td {
+    border: none;
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+.table td .btn {
+    margin-right: 5px;
+}
+
+.table td:last-child {
+    text-align: center;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5em 0.8em;
 }
 
 

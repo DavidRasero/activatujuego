@@ -35,46 +35,62 @@ $deportes = mysqli_query($connection, "SELECT * FROM deporte");
 ?>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Editar evento</h2>
+    <div class="encabezado-eventos text-center animado" id="anim-panel">
+        <h1 class="titulo-eventos mb-4">
+            <i class="bi bi-pencil-square me-2"></i> Editar evento
+        </h1>
 
-    <form method="POST" action="../controllers/actualizar_evento.php">
-        <input type="hidden" name="evento_id" value="<?= $evento['id'] ?>">
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger"><?= $_SESSION['error'];
+            unset($_SESSION['error']); ?></div>
+        <?php endif; ?>
 
-        <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha y hora</label>
-            <input type="datetime-local" class="form-control" name="fecha" id="fecha"
-                value="<?= date('Y-m-d\TH:i', strtotime($evento['fecha'])) ?>"
-                min="<?= (new DateTime())->format('Y-m-d\TH:i') ?>" required>
-        </div>
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success"><?= $_SESSION['success'];
+            unset($_SESSION['success']); ?></div>
+        <?php endif; ?>
 
-        <div class="mb-3">
-            <label for="centro_id" class="form-label">Centro deportivo</label>
-            <select name="centro_id" class="form-select" required>
-                <?php while ($centro = mysqli_fetch_assoc($centros)): ?>
-                    <option value="<?= $centro['id'] ?>" <?= $centro['id'] == $evento['centro_id'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($centro['nombre']) ?>
-                    </option>
-                <?php endwhile; ?>
-            </select>
-        </div>
+        <form method="POST" action="../controllers/actualizar_evento.php" class="text-start mx-auto"
+            style="max-width: 500px;">
+            <input type="hidden" name="evento_id" value="<?= $evento['id'] ?>">
 
-        <div class="mb-3">
-            <label class="form-label">Deporte</label>
-            <input type="text" class="form-control" value="<?php
-            $deporte_nombre = mysqli_fetch_assoc(mysqli_query($connection, "SELECT nombre FROM deporte WHERE id = " . $evento['deporte_id']));
-            echo htmlspecialchars($deporte_nombre['nombre']);
-            ?>" disabled>
-            <input type="hidden" name="deporte_id" value="<?= $evento['deporte_id'] ?>">
-        </div>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha y hora</label>
+                <input type="datetime-local" class="form-control" name="fecha" id="fecha"
+                    value="<?= date('Y-m-d\TH:i', strtotime($evento['fecha'])) ?>"
+                    min="<?= (new DateTime())->format('Y-m-d\TH:i') ?>" required>
+            </div>
 
-        <div class="mb-3">
-            <button type="submit" class="btn btn-success">Guardar cambios</button>
-            <a href="mis_eventos.php" class="btn btn-secondary">Cancelar</a>
-        </div>
+            <div class="mb-3">
+                <label for="centro_id" class="form-label">Centro deportivo</label>
+                <select name="centro_id" id="centro_id" class="form-select" required>
+                    <?php while ($centro = mysqli_fetch_assoc($centros)): ?>
+                        <option value="<?= $centro['id'] ?>" <?= $centro['id'] == $evento['centro_id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($centro['nombre']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
 
-    </form>
+            <div class="mb-3">
+                <label class="form-label">Deporte</label>
+                <input type="text" class="form-control" value="<?php
+                $deporte_nombre = mysqli_fetch_assoc(mysqli_query($connection, "SELECT nombre FROM deporte WHERE id = " . $evento['deporte_id']));
+                echo htmlspecialchars($deporte_nombre['nombre']);
+                ?>" disabled>
+                <input type="hidden" name="deporte_id" value="<?= $evento['deporte_id'] ?>">
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle"></i> Guardar cambios
+                </button>
+                <a href="mis_eventos.php" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 
-<?php
-include('../includes/footer.php');
-?>
+<?php include('../includes/footer.php'); ?>

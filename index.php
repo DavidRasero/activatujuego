@@ -36,32 +36,63 @@
 <div class="container mt-5">
     <div class="encabezado-eventos text-center animado" id="anim-panel">
         <h1 class="titulo-eventos mb-4">Bienvenido a ActivaTuJuego</h1>
-        <p class="lead">Organiza y participa en eventos deportivos fácilmente.</p>
+        <p class="lead" id="subtitulo">Participa en eventos deportivos fácilmente.</p>
 
         <?php if (!isset($_SESSION['nombre'])): ?>
-            <a href="views/login.php" class="btn btn-success me-2">Iniciar sesión</a>
-            <a href="views/register.php" class="btn btn-outline-success">Registrarse</a>
+            <a href="views/login.php" class="btn-historial">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Iniciar sesión
+            </a>
+            <a href="views/register.php" class="btn-historial">
+                <i class="bi bi-pencil-square"></i>
+                Registrarse
+            </a>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['nombre'])): ?>
-            <a href="views/eventos.php" class="btn btn-primary mt-3">Ver lista de eventos</a>
+            <a href="views/lista_deportes.php" class="btn-historial">
+                <i class="bi bi-trophy-fill"></i>
+                Lista de deportes
+            </a>
+            <a href="views/eventos.php" class="btn-historial">
+                <i class="bi bi-calendar-event"></i>
+                Eventos disponibles
+            </a>
 
             <?php if (isset($_SESSION['usuario_id']) && $_SESSION['tipo'] === 'organizador'): ?>
-                <a href="views/crear_evento.php" class="btn btn-outline-success mt-3">Crear evento</a>
-                <a href="views/mis_eventos.php" class="btn btn-outline-primary mt-3">Mis eventos</a>
+                <a href="views/crear_evento.php" class="btn-historial">
+                    <i class="bi bi-pencil-square"></i>
+                    Crear evento
+                </a>
+                <a href="views/mis_eventos.php" class="btn-historial">
+                    <i class="bi bi-clipboard-plus"></i>
+                    Mis eventos
+                </a>
             <?php endif; ?>
 
             <?php if ($_SESSION['tipo'] === 'admin'): ?>
-                <a href="views/usuarios.php" class="btn btn-outline-primary mt-3">Gestión de usuarios</a>
+                <a href="views/usuarios.php" class="btn-historial">
+                    <i class="bi bi-people-fill"></i>
+                    Gestionar usuarios
+                </a>
             <?php endif; ?>
 
             <?php if (isset($_SESSION['usuario_id']) && in_array($_SESSION['tipo'], ['jugador', 'organizador'])): ?>
-                <a href="views/historial.php" class="btn btn-outline-secondary mt-3">Ver historial</a>
+                <a href="views/historial.php" class="btn-historial">
+                    <i class="bi bi-clock-history"></i>
+                    Ver historial
+                </a>
             <?php endif; ?>
 
             <?php if ($_SESSION['tipo'] === 'admin'): ?>
-                <a href="views/gestionar_deportes.php" class="btn btn-outline-primary mt-3">Gestionar Deportes</a>
-                <a href="views/gestionar_centros.php" class="btn btn-outline-primary mt-3">Gestionar Centros Deportivos</a>
+                <a href="views/gestionar_deportes.php" class="btn-historial">
+                    <i class="bi bi-dribbble"></i>
+                    Gestionar deportes
+                </a>
+                <a href="views/gestionar_centros.php" class="btn-historial">
+                    <i class="bi bi-building"></i>
+                    Gestionar centros deportivos
+                </a>
             <?php endif; ?>
         <?php endif; ?>
 

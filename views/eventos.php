@@ -22,13 +22,11 @@ $eventos = $eventoModel->obtenerEventosActivosExcluyendoOrganizador($usuario_id)
             Portal de eventos
         </h1>
         <a href="historial.php" class="btn-historial">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                class="bi bi-clock-history icono-historial" viewBox="0 0 16 16">
-                <path
-                    d="M8.515 3.5a.5.5 0 0 1 .5.5v4l3 1.5a.5.5 0 0 1-.5.866l-3.5-1.75A.5.5 0 0 1 8 8V4a.5.5 0 0 1 .5-.5z" />
-                <path d="M8 16A8 8 0 1 0 0 8a8 8 0 0 0 8 8zm0-1A7 7 0 1 1 8 1a7 7 0 0 1 0 14z" />
-            </svg>
+            <i class="bi bi-clock-history"></i>
             Ver historial
+        </a>
+        <a href="../index.php" class="btn-historial">
+            <i class="bi bi-arrow-left-circle"></i> Volver
         </a>
     </div>
 
