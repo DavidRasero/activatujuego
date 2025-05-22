@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/db.php');
+require_once('../config/database.php');
 
 if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'organizador') {
     header("Location: ../index.php");

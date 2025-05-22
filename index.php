@@ -58,6 +58,10 @@
                 <i class="bi bi-calendar-event"></i>
                 Eventos disponibles
             </a>
+            <a href="views/historial.php" class="btn-historial">
+                <i class="bi bi-clock-history"></i>
+                Ver historial
+            </a>
 
             <?php if (isset($_SESSION['usuario_id']) && $_SESSION['tipo'] === 'organizador'): ?>
                 <a href="views/crear_evento.php" class="btn-historial">
@@ -71,20 +75,6 @@
             <?php endif; ?>
 
             <?php if ($_SESSION['tipo'] === 'admin'): ?>
-                <a href="views/usuarios.php" class="btn-historial">
-                    <i class="bi bi-people-fill"></i>
-                    Gestionar usuarios
-                </a>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['usuario_id']) && in_array($_SESSION['tipo'], ['jugador', 'organizador'])): ?>
-                <a href="views/historial.php" class="btn-historial">
-                    <i class="bi bi-clock-history"></i>
-                    Ver historial
-                </a>
-            <?php endif; ?>
-
-            <?php if ($_SESSION['tipo'] === 'admin'): ?>
                 <a href="views/gestionar_deportes.php" class="btn-historial">
                     <i class="bi bi-dribbble"></i>
                     Gestionar deportes
@@ -92,6 +82,10 @@
                 <a href="views/gestionar_centros.php" class="btn-historial">
                     <i class="bi bi-building"></i>
                     Gestionar centros deportivos
+                </a>
+                <a href="views/usuarios.php" class="btn-historial">
+                    <i class="bi bi-people-fill"></i>
+                    Gestionar usuarios
                 </a>
             <?php endif; ?>
         <?php endif; ?>

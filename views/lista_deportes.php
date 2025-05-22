@@ -17,8 +17,8 @@ $deportes = $deporteModel->obtenerTodos();
     <div class="encabezado-eventos text-center">
         <h1 class="titulo-eventos">Lista de Deportes</h1>
         <a href="../index.php" class="btn-historial">
-        <i class="bi bi-arrow-left-circle"></i> Volver
-    </a>
+            <i class="bi bi-arrow-left-circle"></i> Volver
+        </a>
     </div>
 
     <?php if (empty($deportes)): ?>
@@ -30,13 +30,14 @@ $deportes = $deporteModel->obtenerTodos();
                     <div class="card h-100 shadow-sm">
                         <div class="row g-0">
                             <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                <?php if (!empty($deporte['imagen']) && file_exists($deporte['imagen'])): ?>
+                                <?php if (!empty($deporte['imagen'])): ?>
                                     <img src="<?= $deporte['imagen'] ?>" class="img-fluid rounded-start p-2"
                                         alt="Imagen del deporte">
                                 <?php else: ?>
                                     <img src="../public/img/deportes/default.jpg" class="img-fluid rounded-start p-2"
                                         alt="Imagen por defecto">
                                 <?php endif; ?>
+
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">

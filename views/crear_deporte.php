@@ -21,8 +21,8 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'admin') {
             unset($_SESSION['error']); ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="../controllers/crear_deporte.php" enctype="multipart/form-data"
-            class="text-start mx-auto" style="max-width: 550px;">
+        <form id="formCrearDeporte" method="POST" action="../controllers/crear_deporte.php"
+            enctype="multipart/form-data" class="text-start mx-auto" style="max-width: 550px;">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre del deporte</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -55,5 +55,47 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'admin') {
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('formCrearDeporte').addEventListener('submit', function (e) {
+        const nombre = document.getElementById('nombre').value.trim();
+        const jugadores = document.getElementById('numero_jugadores').value.trim();
+        const descripcion = document.getElementById('descripcion').value.trim();
+        const imagen = document.getElementById('imagen').files[0];
+
+        let errores = [];
+
+        if (nombre === '') {
+            errores.push("El nombre del deporte es obligatorio.");
+        }
+
+        if (jugadores === '' || isNaN(jugadores) || parseInt(jugadores) < 1) {
+            errores.push("El número de jugadores debe ser un número mayor que 0.");
+        }
+
+        if (descripcion.length < 10) {
+            errores.push("La descripción debe tener al menos 10 caracteres.");
+        }
+
+        if (!imagen) {
+            errores.push("Debes seleccionar una imagen.");
+        } else {
+            const extensionesPermitidas = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+            if (!extensionesPermitidas.includes(imagen.type)) {
+                errores.push("La imagen debe ser JPG, PNG, WEBP o GIF.");
+            }
+        }
+
+        if (errores.length > 0) {
+            e.preventDefault(); 
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errores.join("<br>")
+            });
+            
+        }
+    });
+</script>
 
 <?php include('../includes/footer.php'); ?>

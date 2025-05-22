@@ -8,28 +8,28 @@ class CentroDeportivo
         $this->conn = $connection;
     }
 
-
     public function crear($nombre, $direccion)
     {
-        $sql = "INSERT INTO centrodeportivo (nombre, direccion) VALUES (?, ?)";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->conn->prepare("INSERT INTO centrodeportivo (nombre, direccion) VALUES (?, ?)");
         $stmt->bind_param("ss", $nombre, $direccion);
-        return $stmt->execute();
+        $resultado = $stmt->execute();
+        $stmt->close();
+        return $resultado;
     }
 
     public function actualizar($id, $nombre, $direccion)
     {
-        $sql = "UPDATE centrodeportivo SET nombre = ?, direccion = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->conn->prepare("UPDATE centrodeportivo SET nombre = ?, direccion = ? WHERE id = ?");
         $stmt->bind_param("ssi", $nombre, $direccion, $id);
-        return $stmt->execute();
+        $resultado = $stmt->execute();
+        $stmt->close();
+        return $resultado;
     }
-
 
     public function obtenerTodos()
     {
-        $result = $this->conn->query("SELECT * FROM centrodeportivo ORDER BY nombre ASC");
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $resultado = $this->conn->query("SELECT * FROM centrodeportivo ORDER BY nombre ASC");
+        return $resultado->fetch_all(MYSQLI_ASSOC);
     }
 
     public function obtenerPorId($id)
@@ -37,7 +37,9 @@ class CentroDeportivo
         $stmt = $this->conn->prepare("SELECT * FROM centrodeportivo WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        $resultado = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $resultado;
     }
 
     public function tieneEventos($centro_id)
@@ -60,8 +62,4 @@ class CentroDeportivo
         $stmt->close();
         return $resultado;
     }
-
 }
-
-
-

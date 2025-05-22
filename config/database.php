@@ -1,11 +1,15 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "activatujuego";
+// Parámetros
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'activatujuego');
 
-$conn = new mysqli($host, $user, $pass, $db);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Mostrar errores
 
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+try {
+    $connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $connection->set_charset("utf8mb4"); // recoger ñ, tildes, emojis ...
+} catch (mysqli_sql_exception $e) {
+    die("Error de conexión a la base de datos: " . $e->getMessage());
 }
