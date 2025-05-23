@@ -4,11 +4,10 @@ require_once('../config/database.php');
 require_once('../models/Usuario.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $correo = $_POST['correo'];
+    $correo = trim($_POST['correo']);
     $contraseña = $_POST['contraseña'];
 
     $usuarioModel = new Usuario($connection);
-
     $usuario = $usuarioModel->buscarPorCorreo($correo);
 
     if ($usuario && password_verify($contraseña, $usuario['contraseña'])) {
@@ -23,5 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../views/login.php");
         exit;
     }
+} else {
+    header("Location: ../views/login.php");
+    exit;
 }
-?>

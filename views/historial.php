@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/db.php');
+require_once('../config/database.php');
 require_once('../models/Inscripcion.php');
 include('../includes/header.php');
 
@@ -12,7 +12,6 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuario_id = $_SESSION['usuario_id'];
 $inscripcionModel = new Inscripcion($connection);
 
-// Obtener eventos finalizados del usuario
 $eventos = $inscripcionModel->obtenerEventosFinalizadosPorUsuario($usuario_id);
 ?>
 

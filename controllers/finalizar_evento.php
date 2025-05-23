@@ -9,17 +9,16 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'organizador') {
     exit;
 }
 
-$evento_id = isset($_GET['evento_id']) ? intval($_GET['evento_id']) : 0;
+$evento_id = filter_input(INPUT_GET, 'evento_id', FILTER_VALIDATE_INT);
 $organizador_id = $_SESSION['usuario_id'];
 
-if ($evento_id <= 0) {
+if (!$evento_id) {
     $_SESSION['error'] = "Evento no válido.";
     header("Location: ../views/mis_eventos.php");
     exit;
 }
 
 $eventoModel = new Evento($connection);
-
 $evento = $eventoModel->obtenerEventoPorId($evento_id, $organizador_id);
 
 if (!$evento) {
@@ -28,17 +27,11 @@ if (!$evento) {
     exit;
 }
 
-$sql = "UPDATE evento SET estado = 'finalizado' WHERE id = ?";
-$stmt = mysqli_prepare($connection, $sql);
-mysqli_stmt_bind_param($stmt, "i", $evento_id);
-
-if (mysqli_stmt_execute($stmt)) {
+if ($eventoModel->finalizarEvento($evento_id)) {
     $_SESSION['success'] = "Evento marcado como finalizado.";
 } else {
     $_SESSION['error'] = "No se pudo finalizar el evento.";
 }
 
-mysqli_stmt_close($stmt);
-mysqli_close($connection);
 header("Location: ../views/mis_eventos.php");
 exit;

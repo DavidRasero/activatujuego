@@ -30,13 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $nuevaImagen = $deporteExistente['imagen'];
+
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
         $nombreTmp = $_FILES['imagen']['tmp_name'];
-        $nombreArchivo = basename($_FILES['imagen']['name']);
+        $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $nombreArchivo = uniqid('deporte_') . "." . $extension;
         $rutaDestino = "../public/img/" . $nombreArchivo;
 
         if (move_uploaded_file($nombreTmp, $rutaDestino)) {
-            $nuevaImagen = $rutaDestino;
+            $nuevaImagen = "/hlc/activaTuJuego/public/img/" . $nombreArchivo;
         } else {
             $_SESSION['error'] = "Error al subir la nueva imagen.";
             header("Location: ../views/editar_deporte.php?id=$id");

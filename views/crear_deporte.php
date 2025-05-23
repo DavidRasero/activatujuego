@@ -1,9 +1,8 @@
 <?php
 session_start();
-require_once('../includes/db.php');
+require_once('../config/database.php');
 include('../includes/header.php');
 
-// Solo admins pueden acceder
 if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'admin') {
     header("Location: ../index.php");
     exit;

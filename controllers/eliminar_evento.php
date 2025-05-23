@@ -15,72 +15,69 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'organizador') {
     exit;
 }
 
-if (!isset($_GET['evento_id'])) {
+$evento_id = filter_input(INPUT_GET, 'evento_id', FILTER_VALIDATE_INT);
+$organizador_id = $_SESSION['usuario_id'];
+
+if (!$evento_id) {
     $_SESSION['error'] = "Evento no válido.";
     header("Location: ../views/mis_eventos.php");
     exit;
 }
 
-$evento_id = intval($_GET['evento_id']);
-$organizador_id = $_SESSION['usuario_id'];
+$stmt_check = $connection->prepare("SELECT id FROM evento WHERE id = ? AND organizador_id = ?");
+$stmt_check->bind_param("ii", $evento_id, $organizador_id);
+$stmt_check->execute();
+$resultado = $stmt_check->get_result();
+$stmt_check->close();
 
-$sql_check = "SELECT id FROM evento WHERE id = ? AND organizador_id = ?";
-$stmt = mysqli_prepare($connection, $sql_check);
-mysqli_stmt_bind_param($stmt, "ii", $evento_id, $organizador_id);
-mysqli_stmt_execute($stmt);
-$resultado = mysqli_stmt_get_result($stmt);
-
-if (mysqli_fetch_assoc($resultado)) {
-    $sql_correo = "SELECT u.correo, u.nombre 
-                   FROM inscripcion i
-                   JOIN usuario u ON i.usuario_id = u.id
-                   WHERE i.evento_id = ? AND i.estado = 'aceptada'";
-    $stmt_mail = mysqli_prepare($connection, $sql_correo);
-    mysqli_stmt_bind_param($stmt_mail, "i", $evento_id);
-    mysqli_stmt_execute($stmt_mail);
-    $result = mysqli_stmt_get_result($stmt_mail);
-
-    while ($user = mysqli_fetch_assoc($result)) {
-        $mail = new PHPMailer(true);
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'piesdeplatam959@gmail.com';
-            $mail->Password = 'sbdk nrhy xgac ydrh';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom('piesdeplatam959@gmail.com', 'ActivaTuJuego');
-            $mail->addAddress($user['correo'], $user['nombre']);
-            $mail->Subject = 'Cancelación de evento';
-            $mail->Body = "Hola {$user['nombre']},\n\nEl organizador ha cancelado un evento al que estabas inscrito.\n\nGracias por usar ActivaTuJuego.";
-
-            $mail->send();
-        } catch (Exception $e) {
-            echo "Error al enviar correo a {$user['correo']}: {$mail->ErrorInfo}<br>";
-        }
-
-    }
-    mysqli_stmt_close($stmt_mail);
-
-    $sql_del_inscripciones = "DELETE FROM inscripcion WHERE evento_id = ?";
-    $stmt_del = mysqli_prepare($connection, $sql_del_inscripciones);
-    mysqli_stmt_bind_param($stmt_del, "i", $evento_id);
-    mysqli_stmt_execute($stmt_del);
-    mysqli_stmt_close($stmt_del);
-
-    $sql_del_evento = "DELETE FROM evento WHERE id = ?";
-    $stmt_evt = mysqli_prepare($connection, $sql_del_evento);
-    mysqli_stmt_bind_param($stmt_evt, "i", $evento_id);
-    mysqli_stmt_execute($stmt_evt);
-    mysqli_stmt_close($stmt_evt);
-
-    $_SESSION['success'] = "Evento eliminado y notificación enviada a los jugadores.";
-} else {
+if ($resultado->num_rows === 0) {
     $_SESSION['error'] = "No tienes permiso para eliminar este evento.";
+    header("Location: ../views/mis_eventos.php");
+    exit;
 }
 
-mysqli_close($connection);
+$sql_correo = "SELECT u.correo, u.nombre 
+               FROM inscripcion i
+               JOIN usuario u ON i.usuario_id = u.id
+               WHERE i.evento_id = ? AND i.estado = 'aceptada'";
+$stmt_mail = $connection->prepare($sql_correo);
+$stmt_mail->bind_param("i", $evento_id);
+$stmt_mail->execute();
+$result = $stmt_mail->get_result();
+$stmt_mail->close();
+
+while ($user = $result->fetch_assoc()) {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'piesdeplatam959@gmail.com';
+        $mail->Password = 'sbdk nrhy xgac ydrh';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        $mail->setFrom('piesdeplatam959@gmail.com', 'ActivaTuJuego');
+        $mail->addAddress($user['correo'], $user['nombre']);
+        $mail->Subject = 'Evento cancelado';
+        $mail->Body = "Hola {$user['nombre']},\n\nEl organizador ha cancelado un evento al que estabas inscrito.\n\nGracias por usar ActivaTuJuego.";
+
+        $mail->send();
+    } catch (Exception $e) {
+        error_log("Fallo al enviar a {$user['correo']}: {$mail->ErrorInfo}");
+    }
+}
+
+$stmt_del_inscripciones = $connection->prepare("DELETE FROM inscripcion WHERE evento_id = ?");
+$stmt_del_inscripciones->bind_param("i", $evento_id);
+$stmt_del_inscripciones->execute();
+$stmt_del_inscripciones->close();
+
+$stmt_del_evento = $connection->prepare("DELETE FROM evento WHERE id = ?");
+$stmt_del_evento->bind_param("i", $evento_id);
+$stmt_del_evento->execute();
+$stmt_del_evento->close();
+
+$_SESSION['success'] = "Evento eliminado y se notificó a los jugadores.";
 header("Location: ../views/mis_eventos.php");
 exit;

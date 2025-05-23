@@ -157,6 +157,15 @@ class Evento
         return $pendientes;
     }
 
+    public function finalizarEvento($evento_id)
+{
+    $sql = "UPDATE evento SET estado = 'finalizado' WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $evento_id);
+    return $stmt->execute();
+}
+
+
 
 
 

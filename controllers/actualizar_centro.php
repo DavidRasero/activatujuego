@@ -24,11 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$centroExistente) {
         $_SESSION['error'] = "El centro no existe.";
-        header("Location: ../views/gestionar_centros.php");
-        exit;
-    }
-
-    if ($centroModel->actualizar($id, $nombre, $direccion)) {
+    } elseif ($centroModel->actualizar($id, $nombre, $direccion)) {
         $_SESSION['success'] = "Centro actualizado correctamente.";
     } else {
         $_SESSION['error'] = "Error al actualizar el centro.";

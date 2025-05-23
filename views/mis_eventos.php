@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/db.php');
+require_once('../config/database.php');
 require_once('../models/Evento.php');
 include('../includes/header.php');
 
@@ -73,13 +73,10 @@ $eventos = $eventoModel->obtenerEventosDelOrganizador($usuario_id);
                                             <?= $pendientes >= 0 ? "($pendientes)" : "" ?>
                                         </a>
                                     <?php elseif ($evento['estado'] === 'completo'): ?>
-                                        <form method="POST" class="d-inline">
-                                            <input type="hidden" name="evento_id" value="<?= $evento['id'] ?>">
-                                            <button type="button" class="btn btn-sm btn-dark"
-                                                onclick="confirmarFinalizacionEvento(<?= $evento['id'] ?>)">
-                                                <i class="bi bi-flag-fill"></i> Finalizar evento
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-sm btn-dark"
+                                            onclick="confirmarFinalizacionEvento(<?= $evento['id'] ?>)">
+                                            <i class="bi bi-flag-fill"></i> Finalizar evento
+                                        </button>
                                     <?php elseif ($evento['estado'] === 'finalizado'): ?>
                                         <span class="badge bg-secondary">Finalizado</span>
                                     <?php endif; ?>

@@ -37,14 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         $_SESSION['success'] = "Deporte creado correctamente.";
-        header("Location: ../views/gestionar_deportes.php");
+        $redirect = "../views/gestionar_deportes.php";
     } else {
         $_SESSION['error'] = "Error al guardar el deporte.";
-        header("Location: ../views/crear_deporte.php");
+        $redirect = "../views/crear_deporte.php";
     }
 
     $stmt->close();
     $connection->close();
+
+    header("Location: $redirect");
     exit;
 } else {
     header("Location: ../index.php");

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/db.php');
+require_once('../config/database.php');
 require_once('../models/Deporte.php');
 include('../includes/header.php');
 
@@ -62,7 +62,7 @@ if (!$deporte) {
 
             <div class="mb-3">
                 <label class="form-label">Imagen actual:</label><br>
-                <?php if (!empty($deporte['imagen']) && file_exists($deporte['imagen'])): ?>
+                <?php if (!empty($deporte['imagen'])): ?>
                     <img src="<?= $deporte['imagen'] ?>" alt="Imagen actual" class="img-thumbnail"
                         style="max-height: 150px;">
                 <?php else: ?>

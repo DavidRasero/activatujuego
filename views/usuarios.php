@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/db.php');
+require_once('../config/database.php');
 require_once('../models/Usuario.php');
 include('../includes/header.php');
 
