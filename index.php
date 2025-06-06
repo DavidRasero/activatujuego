@@ -13,13 +13,13 @@ include('includes/header.php');
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="public/img/foto4.jpg" class="d-block w-100" alt="...">
+                <img src="/public/img/foto4.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="public/img/foto2.jpg" class="d-block w-100" alt="...">
+                <img src="/public/img/foto2.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="public/img/foto3.jpg" class="d-block w-100" alt="...">
+                <img src="/public/img/foto3.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -95,8 +95,7 @@ include('includes/header.php');
 
         <div class="row mt-4">
             <div class="col-md-6 d-flex justify-content-center align-items-center mb-4 mb-md-0">
-                <img src="public/img/logo.png" alt="Logo ActivaTuJuego" class="img-fluid logo-bonito"
-                    style="max-width: 250px;">
+                <img src="/public/img/logo.png" alt="Logo ActivaTuJuego" class="img-fluid logo-bonito" style="max-width: 250px;">
             </div>
             <div class="col-md-6 text-start">
                 <h5 class="fw-bold">¿Quiénes somos?</h5>

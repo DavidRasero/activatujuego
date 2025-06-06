@@ -64,7 +64,7 @@ while ($fila = mysqli_fetch_assoc($resultadoGrafico)) {
                         <td><?= $deporte['numero_jugadores'] ?></td>
                         <td>
                             <?php if (!empty($deporte['imagen'])): ?>
-                                <img src="<?= $deporte['imagen'] ?>" style="height: 50px;">
+                                <img src="/public/img/<?= htmlspecialchars($deporte['imagen']) ?>" style="height: 50px;">
                             <?php else: ?>
                                 <span class="text-muted">Sin imagen</span>
                             <?php endif; ?>
@@ -122,7 +122,7 @@ while ($fila = mysqli_fetch_assoc($resultadoGrafico)) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="<?= BASE_URL ?>public/js/script.js"></script>
+<script src="/public/js/script.js"></script>
 
 <script>
     window.addEventListener('DOMContentLoaded', () => {

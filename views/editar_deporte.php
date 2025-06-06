@@ -63,8 +63,8 @@ if (!$deporte) {
             <div class="mb-3">
                 <label class="form-label">Imagen actual:</label><br>
                 <?php if (!empty($deporte['imagen'])): ?>
-                    <img src="<?= $deporte['imagen'] ?>" alt="Imagen actual" class="img-thumbnail"
-                        style="max-height: 150px;">
+                    <img src="/public/img/<?= htmlspecialchars($deporte['imagen']) ?>" alt="Imagen actual"
+                        class="img-thumbnail" style="max-height: 150px;">
                 <?php else: ?>
                     <p class="text-muted">No hay imagen</p>
                 <?php endif; ?>

@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $rutaDestino = "../public/img/" . $nombreArchivo;
 
         if (move_uploaded_file($nombreTmp, $rutaDestino)) {
-            $nuevaImagen = "/hlc/activaTuJuego/public/img/" . $nombreArchivo;
+            $nuevaImagen = $nombreArchivo;
         } else {
             $_SESSION['error'] = "Error al subir la nueva imagen.";
             header("Location: ../views/editar_deporte.php?id=$id");

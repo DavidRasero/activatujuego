@@ -22,15 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagen_tmp = $_FILES['imagen']['tmp_name'];
     $extension = pathinfo($imagen_nombre, PATHINFO_EXTENSION);
     $nuevo_nombre = uniqid('deporte_') . "." . $extension;
-    $ruta_destino = "../public/img/" . $nuevo_nombre;
+    // Crear la ruta absoluta a la carpeta de imágenes
+$carpeta_imagenes = realpath(__DIR__ . '/../public/img');
+if ($carpeta_imagenes === false) {
+    $_SESSION['error'] = "No se encontró la carpeta de imágenes.";
+    header("Location: ../views/crear_deporte.php");
+    exit;
+}
+$ruta_destino = $carpeta_imagenes . '/' . $nuevo_nombre;
 
-    if (!move_uploaded_file($imagen_tmp, $ruta_destino)) {
-        $_SESSION['error'] = "Error al subir la imagen.";
-        header("Location: ../views/crear_deporte.php");
-        exit;
-    }
+if (!move_uploaded_file($imagen_tmp, $ruta_destino)) {
+    $_SESSION['error'] = "Error al subir la imagen.";
+    header("Location: ../views/crear_deporte.php");
+    exit;
+}
 
-    $ruta_guardada = "/hlc/activaTuJuego/public/img/" . $nuevo_nombre;
+    $ruta_guardada = $nuevo_nombre;
 
     $stmt = $connection->prepare("INSERT INTO deporte (nombre, numero_jugadores, descripcion, imagen) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("siss", $nombre, $numero_jugadores, $descripcion, $ruta_guardada);

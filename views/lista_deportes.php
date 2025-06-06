@@ -31,10 +31,10 @@ $deportes = $deporteModel->obtenerTodos();
                         <div class="row g-0">
                             <div class="col-md-4 d-flex align-items-center justify-content-center">
                                 <?php if (!empty($deporte['imagen'])): ?>
-                                    <img src="<?= $deporte['imagen'] ?>" class="img-fluid rounded-start p-2"
-                                        alt="Imagen del deporte">
+                                    <img src="/public/img/<?= htmlspecialchars($deporte['imagen']) ?>"
+                                        class="img-fluid rounded-start p-2" alt="Imagen del deporte">
                                 <?php else: ?>
-                                    <img src="../public/img/deportes/default.jpg" class="img-fluid rounded-start p-2"
+                                    <img src="/public/img/default.jpg" class="img-fluid rounded-start p-2"
                                         alt="Imagen por defecto">
                                 <?php endif; ?>
 

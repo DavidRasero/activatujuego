@@ -53,10 +53,10 @@ $eventos = $eventoModel->obtenerEventosActivosExcluyendoOrganizador($usuario_id)
                     <div class="row g-0">
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
                             <?php if (!empty($row['imagen_deporte'])): ?>
-                                <img src="<?= $row['imagen_deporte'] ?>" class="img-fluid rounded-start p-2"
+                                <img src="/public/img/<?= $row['imagen_deporte'] ?>" class="img-fluid rounded-start p-2"
                                     style="max-height: 100%; object-fit: cover;" alt="Imagen del deporte">
                             <?php else: ?>
-                                <img src="../public/img/deportes/default.jpg" class="img-fluid rounded-start p-2"
+                                <img src="/public/img/deportes/default.jpg" class="img-fluid rounded-start p-2"
                                     style="max-height: 100%; object-fit: cover;" alt="Imagen por defecto">
                             <?php endif; ?>
                         </div>
